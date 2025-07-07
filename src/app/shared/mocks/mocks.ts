@@ -1,4 +1,7 @@
-export const mockedCoursesList = [
+import {ICourseApi} from "@app/interfaces/courses/api/course-item.api.interface";
+import {IAuthorApi} from "@app/interfaces/courses/api/author-item.api.interface";
+
+export const mockedCoursesList:ICourseApi[] = [
     {
         id: 'de5aaa59-90f5-4dbc-b8a9-aaf205c551ba',
         title: 'JavaScript',
@@ -23,7 +26,7 @@ export const mockedCoursesList = [
     },
 ];
 
-export const mockedAuthorsList = [
+export const mockedAuthorsList: IAuthorApi[] = [
     {
         id: '27cc3006-e93a-4748-8ca8-73d06aa93b6d',
         name: 'Vasiliy Dobkin'

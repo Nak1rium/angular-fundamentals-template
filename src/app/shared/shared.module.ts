@@ -13,9 +13,18 @@ import {
   CourseFormComponent
 } from "./components";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import { DurationPipe } from './pipes/duration.pipe';
 import { CustomDatePipe } from './pipes/custom-date.pipe';
 import { EmailValidatorDirective } from '@shared/directives/email.directive';
+import {DurationPipe} from "@shared/pipes/duration.pipe";
+
+const directives = [
+  EmailValidatorDirective
+];
+
+const pipes = [
+  DurationPipe,
+  CustomDatePipe
+];
 
 const components = [
   HeaderComponent,
@@ -26,20 +35,17 @@ const components = [
   CourseCardComponent,
   LoginFormComponent,
   RegistrationFormComponent,
-  CourseFormComponent,
-  DurationPipe,
-  CustomDatePipe,
-  EmailValidatorDirective
+  CourseFormComponent
 ];
 
 @NgModule({
-  declarations: [components],
+  declarations: [components,pipes,directives],
     imports: [
         CommonModule,
         FontAwesomeModule,
         FormsModule,
         ReactiveFormsModule,
-        NgOptimizedImage,
+        NgOptimizedImage
     ],
   exports: [components]
 })

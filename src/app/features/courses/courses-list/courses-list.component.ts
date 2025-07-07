@@ -1,13 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-
-interface course {
-  title: string;
-  description: string;
-  creationDate: Date;
-  duration: number;
-  authors: string[];
-  editable: boolean;
-}
+import {ICourseWithAuthors} from "@app/interfaces/courses/course-item.interfase";
 
 @Component({
   selector: 'app-courses-list',
@@ -16,7 +8,7 @@ interface course {
 })
 export class CoursesListComponent {
 
-  @Input() courses!: course[];
+  @Input() courses!: ICourseWithAuthors[];
   @Input() editable!: boolean;
 
   @Output() showCourse = new EventEmitter();

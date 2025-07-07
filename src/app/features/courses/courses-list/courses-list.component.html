@@ -1,3 +1,11 @@
 <div *ngFor="let course of courses" class="courses-list">
-   <app-course-card> </app-course-card>
+   <app-course-card
+           [creationDate]="course.creationDate"
+           [authors]="(course.authors | authorsToNames)"
+           [description]="course.description"
+           [duration]="course.duration"
+           [title]="course.title">
+       <app-button iconName="trash"></app-button>
+       <app-button iconName="edit"></app-button>
+   </app-course-card>
 </div>

@@ -1,1 +1,1 @@
-<p>courses works!</p>
+<app-courses-list *ngIf="coursesWithAuthors$ | async as courses" [courses]="courses"></app-courses-list>

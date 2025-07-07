@@ -8,10 +8,10 @@ import {Component, Input, Output, EventEmitter} from '@angular/core';
 export class CourseCardComponent {
  @Input() title!: string;
  @Input() description!: string;
- @Input() creationDate!: string; //поміняти
+ @Input() creationDate!: Date;
  @Input() duration!: number;
  @Input() authors!: string[];
- @Input() editable!: boolean;
+ @Input() editable?: boolean;
 
  @Output() clickOnShow = new EventEmitter();
 }
