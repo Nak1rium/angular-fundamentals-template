@@ -6,12 +6,12 @@ import {Component, Input, Output, EventEmitter} from '@angular/core';
   styleUrls: ['./course-card.component.scss']
 })
 export class CourseCardComponent {
- @Input() title!: string;
- @Input() description!: string;
- @Input() creationDate!: Date;
- @Input() duration!: number;
- @Input() authors!: string[];
- @Input() editable?: boolean;
+ @Input({required: true}) title!: string;
+ @Input({required: true}) description!: string;
+ @Input({required: true}) creationDate!: Date;
+ @Input({required: true}) duration!: number;
+ @Input({required: true}) authors!: string[];
+ @Input({required: true}) editable?: boolean;
 
  @Output() clickOnShow = new EventEmitter();
 }
