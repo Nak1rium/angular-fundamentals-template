@@ -1,1 +1,32 @@
-<app-courses-list *ngIf="coursesWithAuthors$ | async as courses" [courses]="courses"></app-courses-list>
+<ng-container *ngIf="coursesWithAuthors$ | async as courses">
+    <ng-container *ngIf="courses.length || searchTerm; else emptyList">
+
+        <div class="container">
+            <app-search placeholder="Input text" (search)="handleSearch($event)"></app-search>
+            <app-button (click)="navigateToCourseForm()" buttonText="Add new course"></app-button>
+        </div>
+
+        <app-courses-list
+                *ngIf="courses.length; else nothingFound"
+                [courses]="courses"
+                (showCourse)="showCourse($event)"
+                (editCourse)="editCourse($event)"
+                (deleteCourse)="deleteCourse($event)"
+        >
+        </app-courses-list>
+
+        <ng-template #nothingFound>
+            <app-info title="Nothing was found"></app-info>
+        </ng-template>
+    </ng-container>
+
+    <ng-template #emptyList>
+        <app-info title="Your List Is Empty" text="Please use ’Add New Course’ button to add your first course">
+            <app-button (click)="navigateToCourseForm()" buttonText="ADD NEW COURSE"></app-button>
+        </app-info>
+    </ng-template>
+
+</ng-container>
+
+
+

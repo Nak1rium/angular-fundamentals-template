@@ -1,5 +1,4 @@
 <!-- Replace ::text:: with your code -->
-
 <div class="title">{{courseTitle}}</div>
 <div class="course-info">
   <div class="course-info__description">
@@ -7,12 +6,12 @@
   </div>
   <div class="course-info__info">
     <div><b>ID: </b><span class="course-info__info-id">{{courseId}}</span></div>
-    <div><b>Duration: </b><span class="course-info__info-duration">{{courseDuration}}</span></div>
-    <div><b>Created: </b><span class="course-info__info-date">{{courseCreationDate}}</span></div>
+    <div><b>Duration: </b><span class="course-info__info-duration">{{courseDuration | duration}}</span></div>
+    <div><b>Created: </b><span class="course-info__info-date">{{courseCreationDate | customDate}}</span></div>
     <div><b>Authors: </b><span class="course-info__info-authors">{{courseAuthors}}</span></div>
   </div>
 </div>
 <div class="navigation-block">
   <!--Enter your code here-->
-    <app-button buttonText="Back"></app-button>
+    <app-button (click)="backEvent.emit()" buttonText="Back"></app-button>
 </div>

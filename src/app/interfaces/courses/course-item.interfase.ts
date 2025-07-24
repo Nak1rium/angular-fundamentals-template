@@ -5,6 +5,7 @@ export interface ICourse extends ICourseBase {
 }
 
 interface ICourseBase {
+    id: string;
     title: string;
     description: string;
     creationDate: Date;
@@ -13,4 +14,11 @@ interface ICourseBase {
 
 export interface ICourseWithAuthors extends ICourseBase {
     authors: IAuthor[];
+}
+
+export interface ICourseToCreate {
+    title: string;
+    description: string;
+    authors: IAuthor[];
+    duration: number;
 }

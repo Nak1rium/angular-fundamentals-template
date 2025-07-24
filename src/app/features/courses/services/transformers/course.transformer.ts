@@ -4,6 +4,7 @@ import {IAuthor} from "@app/interfaces/courses/author-item.interface";
 
 export function transformCourse(course: ICourseApi): ICourse {
     return {
+        id: course.id,
         title: course.title,
         description: course.description,
         creationDate: new Date (course.creationDate),

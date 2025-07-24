@@ -9,9 +9,10 @@ import {ICourseWithAuthors} from "@app/interfaces/courses/course-item.interfase"
 export class CoursesListComponent {
 
   @Input() courses!: ICourseWithAuthors[];
-  @Input() editable!: boolean;
+  @Input() editable: boolean = true;
 
   @Output() showCourse = new EventEmitter();
   @Output() editCourse = new EventEmitter();
   @Output() deleteCourse = new EventEmitter();
+
 }

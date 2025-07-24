@@ -40,13 +40,13 @@ const components = [
 
 @NgModule({
   declarations: [components,pipes,directives],
-    imports: [
-        CommonModule,
-        FontAwesomeModule,
-        FormsModule,
-        ReactiveFormsModule,
-        NgOptimizedImage
-    ],
-  exports: [components]
+  imports: [
+    CommonModule,
+    FontAwesomeModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgOptimizedImage
+  ],
+  exports: [components, pipes]
 })
 export class SharedModule { }

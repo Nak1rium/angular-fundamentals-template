@@ -11,6 +11,7 @@ export class CourseCardComponent {
  @Input() creationDate!: Date;
  @Input() duration!: number;
  @Input() authors!: string[];
+ @Input() courseId!: string;
  @Input() editable?: boolean;
 
  @Output() clickOnShow = new EventEmitter();

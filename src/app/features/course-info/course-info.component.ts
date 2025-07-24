@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 
 @Component({
   selector: 'app-course-info',
@@ -13,4 +13,6 @@ export class CourseInfoComponent {
  @Input() courseCreationDate!: Date;
  @Input() courseDuration!: number;
  @Input() courseAuthors!: string[];
+
+ @Output() backEvent = new EventEmitter();
 }

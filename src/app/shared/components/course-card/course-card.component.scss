@@ -8,7 +8,6 @@
   display: flex;
   justify-content: space-between;
   min-height: 170px;
-  width: 80vw;
   background-color: $color-white;
   max-width: 1122px;
 
@@ -32,14 +31,13 @@
     justify-content: space-between;
     margin-left: 50px;
 
-
     &-text {
       margin-top: 31px;
     }
 
     &-actions {
       display: flex;
-      height: 50px;
+      margin-top: 31px;
       gap: 11px;
     }
   }
