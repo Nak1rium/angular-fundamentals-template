@@ -1,21 +1,22 @@
-import { NgModule } from '@angular/core';
+import {NgModule} from '@angular/core';
 import {CommonModule, NgOptimizedImage} from '@angular/common';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { ModalComponent } from './components/modal/modal.component';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {ModalComponent} from './components/modal/modal.component';
 import {
-  HeaderComponent,
   ButtonComponent,
-  InfoComponent,
-  SearchComponent,
   CourseCardComponent,
+  CourseFormComponent,
+  HeaderComponent,
+  InfoComponent,
   LoginFormComponent,
   RegistrationFormComponent,
-  CourseFormComponent
+  SearchComponent
 } from "./components";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import { CustomDatePipe } from './pipes/custom-date.pipe';
-import { EmailValidatorDirective } from '@shared/directives/email.directive';
+import {CustomDatePipe} from './pipes/custom-date.pipe';
+import {EmailValidatorDirective} from '@shared/directives/email.directive';
 import {DurationPipe} from "@shared/pipes/duration.pipe";
+import {isAuthorInList} from "@shared/pipes/is-author-in-list.pipe";
 
 const directives = [
   EmailValidatorDirective
@@ -23,7 +24,8 @@ const directives = [
 
 const pipes = [
   DurationPipe,
-  CustomDatePipe
+  CustomDatePipe,
+  isAuthorInList
 ];
 
 const components = [

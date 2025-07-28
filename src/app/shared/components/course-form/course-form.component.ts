@@ -3,6 +3,7 @@ import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angul
 import {FaIconLibrary} from '@fortawesome/angular-fontawesome';
 import {fas} from '@fortawesome/free-solid-svg-icons';
 import {IAuthor} from "@app/interfaces/courses/author-item.interface";
+import {shouldShowError} from "@shared/helpers/should-show-error.helper";
 
 @Component({
     selector: 'app-course-form',
@@ -63,12 +64,6 @@ export class CourseFormComponent implements OnInit {
     }
 
     //Todo remove from this component
-    get isAuthorNameInvalid(): boolean {
-        const control = this.courseForm.get('newAuthor.authorName');
-        return !!(control && control.invalid && (control.dirty || control.touched) && control.value);
-    }
-
-    //Todo remove from this component
     getAuthorNameErrorMassage(): string {
         const authorNameControl = this.courseForm.get('newAuthor.authorName');
         if (authorNameControl?.hasError('pattern')) {
@@ -80,12 +75,6 @@ export class CourseFormComponent implements OnInit {
         }
 
         return '';
-    }
-
-    //Todo remove from this component
-    shouldShowError(controlName: string): boolean {
-        const control = this.courseForm.get(controlName);
-        return !!control && control.invalid && (control.touched || this.submitted);
     }
 
     //Todo remove from this component
@@ -117,6 +106,10 @@ export class CourseFormComponent implements OnInit {
         return (this.courseForm.get('authors')! as FormArray);
     }
 
+    get listAuthors(): IAuthor[] {
+        return this.authorsFormArray.controls.map(control => control.value);
+    }
+
     addAuthorToCourse(id: string, name: string): void {
         this.authorsFormArray.push(new FormControl({
                 id,
@@ -133,14 +126,6 @@ export class CourseFormComponent implements OnInit {
         this.authorsFormArray.removeAt(index);
     }
 
-    //Todo move to pipe
-    hasAuthor(id: string, name: string): boolean {
-        return this.authorsFormArray.controls.some(control => {
-            const value = control.value;
-            return value.id === id && value.name === name;
-        });
-    }
-
     hasCourseAuthors(): boolean {
         return !!this.authorsFormArray.controls.length
     }
@@ -155,4 +140,6 @@ export class CourseFormComponent implements OnInit {
 
         this.createCourse.emit(courseValue);
     }
+
+    protected readonly shouldShowError = shouldShowError;
 }

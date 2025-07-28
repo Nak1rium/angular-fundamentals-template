@@ -1,10 +1,10 @@
 <app-course-form
-        *ngIf="$course | async as course; else courseForm"
+        *ngIf="course$ | async as course; else courseForm"
         [title]="course.title"
         [duration]="course.duration"
         [description]="course.description"
         [authors]="course.authors"
-        [allAuthors]="($allAuthors | async)!"
+        [allAuthors]="(allAuthors$ | async)!"
         (createAuthor)="createNewAuthor($event)"
         (cancelButtonEvent)="navToCourses()"
         (authorDelete)="deleteAuthor($event)"
@@ -14,7 +14,7 @@
 
 <ng-template #courseForm>
     <app-course-form
-            [allAuthors]="($allAuthors | async)!"
+            [allAuthors]="(allAuthors$ | async)!"
             (createAuthor)="createNewAuthor($event)"
             (cancelButtonEvent)="navToCourses()"
             (authorDelete)="deleteAuthor($event)"

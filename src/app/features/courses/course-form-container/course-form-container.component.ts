@@ -17,17 +17,17 @@ export class CourseFormContainerComponent implements OnInit {
     authorsService = inject(AuthorsService);
     coursesService = inject(CoursesService);
     courseId?: string | null;
-    $allAuthors!: Observable<IAuthor[]>;
-    $course?: Observable<ICourseWithAuthors | undefined>;
+    allAuthors$!: Observable<IAuthor[]>;
+    course$?: Observable<ICourseWithAuthors | undefined>;
 
     constructor(private route: ActivatedRoute, private router: Router) {
     }
 
     ngOnInit() {
         this.courseId = this.route.snapshot.paramMap.get('id');
-        this.$allAuthors = this.authorsService.getAuthors();
+        this.allAuthors$ = this.authorsService.getAuthors();
         if (this.courseId) {
-            this.$course = this.coursesService.getCourseById(this.courseId);
+            this.course$ = this.coursesService.getCourseById(this.courseId);
         }
     }
 
@@ -37,21 +37,21 @@ export class CourseFormContainerComponent implements OnInit {
 
     createNewAuthor(newAuthor: string) {
         this.authorsService.createNewAuthor(newAuthor);
-        this.$allAuthors = this.authorsService.getAuthors();
+        this.allAuthors$ = this.authorsService.getAuthors();
     }
 
     deleteAuthor(id: string): void {
         this.authorsService.deleteAuthor(id);
-        this.$allAuthors = this.authorsService.getAuthors();
+        this.allAuthors$ = this.authorsService.getAuthors();
     }
 
     handleCourse(course: ICourseToCreate): void {
         if (this.courseId) {
-            this.coursesService.editCourse(this.courseId,course.title, course.description, course.duration, course.authors)
+            this.coursesService.editCourse(this.courseId, course)
             this.navToCourses();
             return;
         }
-        this.coursesService.createNewCourse(course.title, course.description, course.duration, course.authors)
+        this.coursesService.createNewCourse(course)
         this.navToCourses();
     }
 }

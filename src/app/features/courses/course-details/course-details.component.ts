@@ -12,13 +12,13 @@ import {ICourseWithAuthors} from "@app/interfaces/courses/course-item.interfase"
 export class CourseDetailsComponent implements OnInit {
   courseId!: string;
   coursesService = inject(CoursesService);
-  $course!: Observable<ICourseWithAuthors | undefined>;
+  course$!: Observable<ICourseWithAuthors | undefined>;
 
   constructor(private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
     this.courseId = this.route.snapshot.paramMap.get('id')!;
-    this.$course = this.coursesService.getCourseById(this.courseId).pipe(
+    this.course$ = this.coursesService.getCourseById(this.courseId).pipe(
         catchError((err)=> {
           alert(err);
           this.navToCourses();

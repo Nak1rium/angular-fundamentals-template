@@ -1,6 +1,6 @@
 <!-- Replace ::text:: with your code -->
 <h2>Create / Edit Course</h2>
-<form [formGroup]="courseForm" #formRef (ngSubmit)="onSubmit()" class="course-form" >
+<form [formGroup]="courseForm" #formRef (ngSubmit)="onSubmit()" class="course-form">
     <div class="app-plate">
         <div class="course">
 
@@ -10,8 +10,9 @@
                 <label for="title">Title</label>
                 <!--Use the name `title` for the form control.-->
                 <input type="text" id="title" placeholder="Title" formControlName="title"
-                       [class.is-invalid]="shouldShowError('title')"/>
-                <span *ngIf="shouldShowError('title')" id="titleErrorMessage"
+                       [class.is-invalid]="shouldShowError(courseForm, 'title',submitted)"/>
+                <span *ngIf="shouldShowError(courseForm, 'title', submitted)"
+                      id="titleErrorMessage"
                       class="text-danger">{{ getErrorMessage('title') }}</span>
             </div>
 
@@ -25,9 +26,10 @@
                         rows="4"
                         cols="5"
                         formControlName="description"
-                        [class.is-invalid]="shouldShowError('description')"
+                        [class.is-invalid]="shouldShowError(courseForm, 'description',submitted)"
                 ></textarea>
-                <span *ngIf="shouldShowError('description')" id="descriptionErrorMessage"
+                <span *ngIf="shouldShowError(courseForm, 'description',submitted)"
+                      id="descriptionErrorMessage"
                       class="text-danger">{{ getErrorMessage('description') }}</span>
             </div>
 
@@ -38,12 +40,13 @@
                         <div class="course__flex">
                             <!--Use the name `duration` for the form array.-->
                             <input type="number" id="duration" placeholder="Duration" formControlName="duration"
-                                   [class.is-invalid]="shouldShowError('duration')"/>
+                                   [class.is-invalid]="shouldShowError(courseForm, 'duration',submitted)"/>
                             <div class="course__duration">
                                 {{ durationFromControl | duration }}
                             </div>
                         </div>
-                        <span *ngIf="shouldShowError('duration')" id="durationErrorMessage"
+                        <span *ngIf="shouldShowError(courseForm, 'duration',submitted)"
+                              id="durationErrorMessage"
                               class="text-danger">{{ getErrorMessage('duration') }}</span>
                     </div>
 
@@ -56,18 +59,19 @@
                                 <!--Use the name `author` for the form control.-->
                                 <input type="text" id="author" placeholder="Author Name"
                                        formControlName="authorName"
-                                       [class.is-invalid]="isAuthorNameInvalid"/>
+                                       [class.is-invalid]="shouldShowError(courseForm, 'newAuthor.authorName')"/>
                             </div>
                             <app-button (click)="createNewAuthor()" buttonText="Create Author"></app-button>
                         </div>
-                        <span *ngIf="isAuthorNameInvalid" id="authorErrorMessage"
+                        <span *ngIf="shouldShowError(courseForm, 'newAuthor.authorName')"
+                              id="authorErrorMessage"
                               class="text-danger">{{ getAuthorNameErrorMassage() }}</span>
                         <div class="course__authors">
                             <h3>Authors List</h3>
                             <!--Use the name `authors` for the form array.-->
                             <ul>
                                 <li *ngFor="let author of allAuthors">
-                                    <ng-container *ngIf="!hasAuthor(author.id, author.name)">
+                                    <ng-container *ngIf="!(listAuthors | isAuthorInList: author.id : author.name)">
                                         <span>{{ author.name }}</span>
                                         <button (click)="addAuthorToCourse(author.id,author.name)">
                                             <fa-icon [icon]="['fas', 'plus']" size="lg"></fa-icon>

@@ -1,5 +1,5 @@
 <app-course-info
-        *ngIf="$course | async as course"
+        *ngIf="course$ | async as course"
         [courseId]="course.id"
         [courseTitle]="course.title"
         [courseDescription]="course.description"

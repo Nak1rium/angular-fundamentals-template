@@ -10,6 +10,11 @@ import {CoursesService} from '@app/services/courses.service';
 import {RouterOutlet} from "@angular/router";
 import {AppRoutingModule} from "@app/app-routing.module";
 
+const services = [
+    CoursesService,
+    CoursesStoreService
+]
+
 @NgModule({
   declarations: [AppComponent],
     imports: [
@@ -19,7 +24,7 @@ import {AppRoutingModule} from "@app/app-routing.module";
         RouterOutlet,
         AppRoutingModule
     ],
-  providers: [AuthorizedGuard, NotAuthorizedGuard, CoursesService, CoursesStoreService],
+  providers: [AuthorizedGuard, NotAuthorizedGuard, services],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

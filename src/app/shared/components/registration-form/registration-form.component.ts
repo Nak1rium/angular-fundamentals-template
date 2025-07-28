@@ -1,5 +1,6 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {shouldShowError} from "@shared/helpers/should-show-error.helper";
 
 @Component({
   selector: 'app-registration-form',
@@ -41,12 +42,6 @@ export class RegistrationFormComponent {
     return null;
   }
 
-  //Todo remove from this component
-  shouldShowError(controlName: string): boolean {
-    const control = this.registrationForm.get(controlName);
-    return !!control && control.invalid && (control.touched || this.submitted);
-  }
-
   onSubmit() {
     this.submitted = true;
 
@@ -54,4 +49,6 @@ export class RegistrationFormComponent {
       console.log(this.registrationForm.value);
     }
   }
+
+  protected readonly shouldShowError = shouldShowError;
 }
