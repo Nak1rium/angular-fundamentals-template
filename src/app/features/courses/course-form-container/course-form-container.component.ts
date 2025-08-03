@@ -1,12 +1,10 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {AuthorsService} from "@features/courses/services/authors.service";
 import {IAuthor} from "@app/interfaces/courses/author-item.interface";
 import {Observable} from "rxjs";
-import {ICourseToCreate, ICourseWithAuthors} from "@app/interfaces/courses/course-item.interfase";
-import {CoursesService} from "@features/courses/services/courses.service";
+import {ICourseWithAuthors, newCourse} from "@app/interfaces/courses/course-item.interface";
 import {ROUTE_NAMES} from "@app/app-routing.module";
-
+import {CoursesStoreService} from "@features/courses/services/courses-store.service";
 
 @Component({
     selector: 'app-course-form-container',
@@ -14,20 +12,26 @@ import {ROUTE_NAMES} from "@app/app-routing.module";
     styleUrls: ['./course-form-container.component.css']
 })
 export class CourseFormContainerComponent implements OnInit {
-    authorsService = inject(AuthorsService);
-    coursesService = inject(CoursesService);
+    private coursesStoreService = inject(CoursesStoreService);
+    private router = inject(Router);
+    private route = inject(ActivatedRoute);
+
     courseId?: string | null;
     allAuthors$!: Observable<IAuthor[]>;
     course$?: Observable<ICourseWithAuthors | undefined>;
 
-    constructor(private route: ActivatedRoute, private router: Router) {
+    ngOnInit() {
+        this.handleDataInitialization();
     }
 
-    ngOnInit() {
+     handleDataInitialization(): void {
         this.courseId = this.route.snapshot.paramMap.get('id');
-        this.allAuthors$ = this.authorsService.getAuthors();
+        if (!this.coursesStoreService.authors.length) {
+            this.coursesStoreService.getAllAuthors();
+        }
+        this.allAuthors$ = this.coursesStoreService.authors$;
         if (this.courseId) {
-            this.course$ = this.coursesService.getCourseById(this.courseId);
+            this.course$ = this.coursesStoreService.getCourse(this.courseId);
         }
     }
 
@@ -36,22 +40,20 @@ export class CourseFormContainerComponent implements OnInit {
     }
 
     createNewAuthor(newAuthor: string) {
-        this.authorsService.createNewAuthor(newAuthor);
-        this.allAuthors$ = this.authorsService.getAuthors();
+        this.coursesStoreService.createAuthor({name: newAuthor});
     }
 
     deleteAuthor(id: string): void {
-        this.authorsService.deleteAuthor(id);
-        this.allAuthors$ = this.authorsService.getAuthors();
+        this.coursesStoreService.deleteAuthor(id);
     }
 
-    handleCourse(course: ICourseToCreate): void {
+    handleCourse(course: newCourse): void {
         if (this.courseId) {
-            this.coursesService.editCourse(this.courseId, course)
+            this.coursesStoreService.editCourse(this.courseId, course)
             this.navToCourses();
             return;
         }
-        this.coursesService.createNewCourse(course)
+        this.coursesStoreService.createCourse(course);
         this.navToCourses();
     }
 }

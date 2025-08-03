@@ -3,6 +3,7 @@ import {NgModule} from "@angular/core";
 import {CoursesComponent} from "@features/courses/courses.component";
 import {CourseDetailsComponent} from "@features/courses/course-details/course-details.component";
 import {CourseFormContainerComponent} from "@features/courses/course-form-container/course-form-container.component";
+import {adminGuard} from "@app/user/guards/admin.guard";
 
 export const routes: Routes = [
     {
@@ -12,6 +13,7 @@ export const routes: Routes = [
     {
         path: 'add',
         component: CourseFormContainerComponent,
+        canActivate: [adminGuard]
     },
     {
         path: ':id',
@@ -20,6 +22,7 @@ export const routes: Routes = [
     {
         path: 'edit/:id',
         component: CourseFormContainerComponent,
+        canActivate: [adminGuard]
     }
 ];
 

@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {ICourseWithAuthors} from "@app/interfaces/courses/course-item.interfase";
+import {ICourseWithAuthors} from "@app/interfaces/courses/course-item.interface";
 
 @Component({
   selector: 'app-courses-list',
@@ -7,12 +7,10 @@ import {ICourseWithAuthors} from "@app/interfaces/courses/course-item.interfase"
   styleUrls: ['./courses-list.component.scss']
 })
 export class CoursesListComponent {
-
   @Input() courses!: ICourseWithAuthors[];
-  @Input() editable: boolean = true;
+  @Input() editable!: boolean | null;
 
   @Output() showCourse = new EventEmitter();
   @Output() editCourse = new EventEmitter();
   @Output() deleteCourse = new EventEmitter();
-
 }

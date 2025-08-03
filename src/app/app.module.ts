@@ -3,28 +3,34 @@ import {BrowserModule} from '@angular/platform-browser';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {SharedModule} from '@shared/shared.module';
 import {AppComponent} from '@app/app.component';
-import {NotAuthorizedGuard} from '@app/auth/guards/not-authorized.guard';
-import {AuthorizedGuard} from '@app/auth/guards/authorized.guard';
-import {CoursesStoreService} from '@app/services/courses-store.service';
-import {CoursesService} from '@app/services/courses.service';
 import {RouterOutlet} from "@angular/router";
 import {AppRoutingModule} from "@app/app-routing.module";
+import {CoreModule} from "@app/core/core-module";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {AuthModule} from "@auth/auth.module";
+import {TokenInterceptor} from "@auth/interceptors/token.interceptor";
 
-const services = [
-    CoursesService,
-    CoursesStoreService
-]
 
 @NgModule({
-  declarations: [AppComponent],
+    declarations: [AppComponent],
     imports: [
         BrowserModule,
         SharedModule,
         FontAwesomeModule,
         RouterOutlet,
-        AppRoutingModule
+        AppRoutingModule,
+        CoreModule,
+        HttpClientModule,
+        AuthModule
     ],
-  providers: [AuthorizedGuard, NotAuthorizedGuard, services],
-  bootstrap: [AppComponent],
+    providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: TokenInterceptor,
+            multi: true
+        }
+    ],
+    bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+}

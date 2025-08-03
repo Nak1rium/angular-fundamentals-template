@@ -73,10 +73,10 @@
                                 <li *ngFor="let author of allAuthors">
                                     <ng-container *ngIf="!(listAuthors | isAuthorInList: author.id : author.name)">
                                         <span>{{ author.name }}</span>
-                                        <button (click)="addAuthorToCourse(author.id,author.name)">
+                                        <button type="button" (click)="addAuthorToCourse(author.id,author.name)">
                                             <fa-icon [icon]="['fas', 'plus']" size="lg"></fa-icon>
                                         </button>
-                                        <button (click)="deleteAuthor(author.id)">
+                                        <button type="button" (click)="deleteAuthor(author.id)">
                                             <fa-icon [icon]="['fas', 'trash-can']" size="lg"></fa-icon>
                                         </button>
                                     </ng-container>
@@ -91,7 +91,7 @@
                     <ul>
                         <li *ngFor=" let item of courseForm.get('authors')!.value; let index = index">
                             <span>{{ item.name }}</span>
-                            <button (click)="deleteAuthorFromCourse(index)">
+                            <button type="button" (click)="deleteAuthorFromCourse(index)">
                                 <fa-icon [icon]="['fas', 'minus']" size="lg"></fa-icon>
                             </button>
                         </li>

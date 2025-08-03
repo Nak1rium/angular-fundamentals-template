@@ -7,3 +7,7 @@ export function transformAuthor(author: IAuthorApi): IAuthor {
         name: author.name
     }
 }
+
+export function transformAuthors(authors: IAuthorApi[]): IAuthor[] {
+    return authors.map(transformAuthor);
+}

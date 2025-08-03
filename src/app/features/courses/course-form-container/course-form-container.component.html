@@ -5,10 +5,10 @@
         [description]="course.description"
         [authors]="course.authors"
         [allAuthors]="(allAuthors$ | async)!"
-        (createAuthor)="createNewAuthor($event)"
-        (cancelButtonEvent)="navToCourses()"
-        (authorDelete)="deleteAuthor($event)"
         (createCourse)="handleCourse($event)"
+        (createAuthor)="createNewAuthor($event)"
+        (authorDelete)="deleteAuthor($event)"
+        (cancelButtonEvent)="navToCourses()"
 >
 </app-course-form>
 

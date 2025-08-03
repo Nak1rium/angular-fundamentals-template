@@ -137,6 +137,7 @@ export class CourseFormComponent implements OnInit {
 
         const courseValue = this.courseForm.value;
         delete courseValue.newAuthor;
+        courseValue.authors = courseValue.authors.map((author: any) => author.id);
 
         this.createCourse.emit(courseValue);
     }

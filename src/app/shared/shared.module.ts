@@ -17,6 +17,8 @@ import {CustomDatePipe} from './pipes/custom-date.pipe';
 import {EmailValidatorDirective} from '@shared/directives/email.directive';
 import {DurationPipe} from "@shared/pipes/duration.pipe";
 import {isAuthorInList} from "@shared/pipes/is-author-in-list.pipe";
+import {RouterLink} from "@angular/router";
+import {LoaderComponent} from "@shared/components/loader/loader.component";
 
 const directives = [
   EmailValidatorDirective
@@ -37,7 +39,8 @@ const components = [
   CourseCardComponent,
   LoginFormComponent,
   RegistrationFormComponent,
-  CourseFormComponent
+  CourseFormComponent,
+  LoaderComponent
 ];
 
 @NgModule({
@@ -47,7 +50,8 @@ const components = [
     FontAwesomeModule,
     FormsModule,
     ReactiveFormsModule,
-    NgOptimizedImage
+    NgOptimizedImage,
+    RouterLink
   ],
   exports: [components, pipes]
 })

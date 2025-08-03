@@ -27,7 +27,7 @@
                     <app-button (click)="formRef.requestSubmit()" buttonText="Register"></app-button>
                 </div>
                 <div class="form__text">
-                    <a>If you don't have an account you may <strong>Login</strong></a>
+                   <span>If you don't have an account you may<a [routerLink]="'/auth/login'"><strong> Login</strong></a></span>
                 </div>
             </div>
         </form>

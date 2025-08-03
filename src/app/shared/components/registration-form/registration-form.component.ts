@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Output} from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {shouldShowError} from "@shared/helpers/should-show-error.helper";
 
@@ -11,6 +11,7 @@ import {shouldShowError} from "@shared/helpers/should-show-error.helper";
 export class RegistrationFormComponent {
   submitted = false;
   registrationForm!: FormGroup;
+  @Output() newUserCred = new EventEmitter();
   // Use the names `name`, `email`, `password` for the form controls.
 
   constructor(private formBuilder: FormBuilder) {
@@ -46,7 +47,7 @@ export class RegistrationFormComponent {
     this.submitted = true;
 
     if (this.registrationForm.valid) {
-      console.log(this.registrationForm.value);
+      this.newUserCred.emit(this.registrationForm.value);
     }
   }
 

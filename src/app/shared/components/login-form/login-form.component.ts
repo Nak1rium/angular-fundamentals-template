@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, ElementRef, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Output, ViewChild} from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -11,6 +11,8 @@ export class LoginFormComponent {
   @ViewChild("loginForm") public loginForm!: NgForm;
   @ViewChild('formEl') formElement!: ElementRef<HTMLFormElement>;
   //Use the names `email` and `password` for form controls.
+
+  @Output() userCred = new EventEmitter();
 
   submitted = false;
 
@@ -26,7 +28,7 @@ export class LoginFormComponent {
   onSubmit() {
     this.submitted = true;
     if (this.loginForm.valid) {
-      console.log('valid', this.user);
+      this.userCred.emit(this.user);
     }
   }
 }

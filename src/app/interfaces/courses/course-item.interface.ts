@@ -16,9 +16,9 @@ export interface ICourseWithAuthors extends ICourseBase {
     authors: IAuthor[];
 }
 
-export interface ICourseToCreate {
-    title: string;
-    description: string;
-    authors: IAuthor[];
-    duration: number;
+export interface newCourse {
+    "title": string,
+    "description": string,
+    "duration": number,
+    "authors": string[],
 }

@@ -1,9 +1,13 @@
 @import 'src/app/shared/styles/styles.scss';
 
-.wrapper{
+.wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  a {
+    text-decoration: none;
+  }
 }
 
 .login-form {
@@ -13,3 +17,4 @@
   flex-direction: column;
   justify-content: space-between;
 }
+

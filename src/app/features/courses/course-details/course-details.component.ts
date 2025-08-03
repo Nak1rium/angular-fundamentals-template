@@ -1,33 +1,46 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {CoursesService} from "@features/courses/services/courses.service";
 import {catchError, Observable, of} from "rxjs";
-import {ICourseWithAuthors} from "@app/interfaces/courses/course-item.interfase";
+import {ICourseWithAuthors} from "@app/interfaces/courses/course-item.interface";
+import {ROUTE_NAMES} from "@app/app-routing.module";
+import {CoursesStoreService} from "@features/courses/services/courses-store.service";
 
 @Component({
-  selector: 'app-course-details',
-  templateUrl: './course-details.component.html',
-  styleUrls: ['./course-details.component.css']
+    selector: 'app-course-details',
+    templateUrl: './course-details.component.html',
+    styleUrls: ['./course-details.component.css']
 })
 export class CourseDetailsComponent implements OnInit {
-  courseId!: string;
-  coursesService = inject(CoursesService);
-  course$!: Observable<ICourseWithAuthors | undefined>;
+    private coursesStoreService = inject(CoursesStoreService);
+    private router = inject(Router);
+    private route = inject(ActivatedRoute);
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
+    courseId!: string;
+    course$!: Observable<ICourseWithAuthors | undefined>;
 
-  ngOnInit(): void {
-    this.courseId = this.route.snapshot.paramMap.get('id')!;
-    this.course$ = this.coursesService.getCourseById(this.courseId).pipe(
-        catchError((err)=> {
-          alert(err);
-          this.navToCourses();
-          return of (undefined)})
-    );
-  }
+    ngOnInit(): void {
+        this.initCourse();
+    }
 
-  navToCourses(): void {
-    this.router.navigate(['/courses']);
-  }
+    initCourse(): void {
+        this.courseId = this.route.snapshot.paramMap.get('id')!;
+        this.course$ = this.loadCourse(this.courseId);
+    }
+
+    loadCourse(id: string): Observable<ICourseWithAuthors | undefined> {
+        return this.coursesStoreService.getCourse(id).pipe(
+            catchError((error) => this.handleCourseLoadError(error))
+        );
+    }
+
+    handleCourseLoadError(_error: any): Observable<undefined> {
+        alert('Course not found.');
+        this.navToCourses();
+        return of(undefined);
+    }
+
+    navToCourses(): void {
+        this.router.navigate([ROUTE_NAMES.COURSES]);
+    }
 }
 
