@@ -25,6 +25,6 @@ export class AuthorsApiService {
     }
 
     deleteAuthor(authorId: string): Observable<IApiResponse<string>> {
-       return this.http.delete<IApiResponse<string>>(`${API_URL}/authors/${authorId}`);
+        return this.http.delete<IApiResponse<string>>(`${API_URL}/authors/${authorId}`);
     }
 }
