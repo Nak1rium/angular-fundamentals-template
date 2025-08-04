@@ -25,7 +25,11 @@ export class CoursesComponent implements OnInit {
 
     handleSearch(searchTerm: string): void {
         this.searchTerm = searchTerm;
-        this.coursesFacade.getFilteredCourses(searchTerm);
+        const trimmedSearchTerm = (searchTerm ?? '').trim();
+
+        trimmedSearchTerm === ''
+            ? this.coursesFacade.getAllCourses()
+            : this.coursesFacade.getFilteredCourses(trimmedSearchTerm);
     }
 
     deleteCourse(courseId: string): void {
